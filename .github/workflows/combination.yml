@@ -6,6 +6,45 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@master
+        # Run Yarn Install
+      - name: Run Yarn Install - Shared components
+        run: yarn --cwd src/frontend/shared-components install
+
+      # Run Yarn Prepare
+      - name: Run Yarn Prepare - Shared components
+        run: yarn --cwd src/frontend/shared-components prepare
+
+      # Run Yarn Coverage to generate javascript coverage report
+      - name: Run Yarn Coverage - Shared components
+        run: yarn --cwd /home/runner/work/jag-file-submission/jag-file-submission/src/frontend/shared-components coverage
+        
+        # List shared-components coverage reports
+      - name: WHERE AM I - FRONTEND?
+        run: ls ${{github.workspace}}/src/frontend/shared-components/coverage
+
+      # Run Yarn Install
+      - name: Run Yarn Install - eFiling Frontend
+        run: yarn --cwd src/frontend/efiling-frontend install
+
+      # Run Yarn Coverage to generate javascript coverage report
+      - name: Run Yarn Coverage - eFiling Frontend
+        run: yarn --cwd /home/runner/work/jag-file-submission/jag-file-submission/src/frontend/efiling-frontend coverage
+
+      # List frontend coverage reports
+      - name: WHERE AM I - FRONTEND?
+        run: ls ${{github.workspace}}/src/frontend/efiling-frontend/coverage
+
+      # Run Yarn Install
+      - name: Run Yarn Install - eFiling Demo
+        run: yarn --cwd src/frontend/efiling-demo install
+
+      # Run Yarn Coverage to generate javascript coverage report
+      - name: Run Yarn Coverage - eFiling Demo
+        run: yarn --cwd /home/runner/work/jag-file-submission/jag-file-submission/src/frontend/efiling-demo coverage
+
+      # List frontend coverage reports
+      - name: WHERE AM I - FRONTEND DEMO?
+        run: ls ${{github.workspace}}/src/frontend/efiling-demo/coverage
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
